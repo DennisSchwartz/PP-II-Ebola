@@ -1,12 +1,12 @@
-Y5R Non-neutral 4 71%
-R11S Non-neutral 1 59%
-H23N Non-neutral 2 63%
-H24P Non-neutral 0 53%
-G37V Non-neutral 1 59%
-Y39R Non-neutral 4 71%
-T96N Non-neutral 3 66%
-S111I Non-neutral 1 59%
-L116S Non-neutral 4 71%
-R262A Non-neutral 1 59%
-C280T Non-neutral 2 63%
-E285T Non-neutral 2 63%
+Y5R Non-neutral 4 71% Score = 41
+R11S Non-neutral 1 59% Score = 19
+H23N Non-neutral 2 63% Score = 20
+H24P Non-neutral 0 53% Score = 09
+G37V Non-neutral 1 59% Score = 18
+Y39R Non-neutral 4 71% Score = 41
+T96N Non-neutral 3 66% Score = 40
+S111I Non-neutral 1 59% Score = 12
+L116S Non-neutral 4 71% Score = 47
+R262A Non-neutral 1 59% Score = 18
+C280T Non-neutral 2 63% Score = 24
+E285T Non-neutral 2 63% Score = 27
