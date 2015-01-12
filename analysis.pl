@@ -41,7 +41,20 @@ if(!defined $ARGV[1]) {
 
 ##### GLOBAL VARS ######
 $file = $ARGV[0];
-my $binding_sites_file = $ARGV[2];
+my $subst_file = $ARGV[2];
+
+
+open (my $subst_FH, "< $subst_file") or die "Can't open $subst_file for read: $!";
+
+my @substitutions;
+
+while (<$subst_FH>) {
+	chomp $_;
+	push (@substitutions, $_);
+}
+#print @substitutions;
+
+close $subst_FH or die "Cannot close $file: $!";
 
 
 open (FH, "< $file") or die "Can't open $file for read: $!";
@@ -49,7 +62,7 @@ open (FH, "< $file") or die "Can't open $file for read: $!";
 my $currentPos = 0;
 my $prevPos = 0;
 my @set;
-my @sets;
+my @result;
 
 my $line = <FH>;
 ($currentPos) = $line =~ m/\w(\d*)\w\s/;
@@ -69,6 +82,7 @@ while (<FH>) {
 		#do sth. with current set
 		#print "Position: ${currentPos}\n";
 		#print_set(@set);
+=for comment
 		my @scores = get_scores(@set);
 		#print "scores: @scores \n";
 		$mean = mean(@scores);
@@ -84,6 +98,18 @@ while (<FH>) {
 		my $setObj = new Set($prevPos, \@scores, $mean);
 		push (@sets, $setObj);
 		undef(@set);
+=cut
+		foreach my $s (@substitutions) {
+			foreach my $x (@set) {
+				my ($currentSubst) = $x =~ m/(\w\d*\w)\s/;
+				#print "$s - $currentSubst\n";
+				if ($s eq $currentSubst) {
+					push (@result, $x);
+				}
+			}
+		}
+		undef (@set);
+
 
 	}
 
@@ -94,6 +120,8 @@ while (<FH>) {
 close FH or die "Cannot close $file: $!";
 
 
+print @result;
+=for comment
 #++++++++++++++ Write last set ++++++++++++++++++#
 my @scores = get_scores(@set);
 $mean = mean(@scores);
@@ -153,7 +181,7 @@ print "Significant Positions: @significantPositions\n";
 
 my @binding_sites;
 
-open (FH2, "< $binding_sites_file") or die "Can't open $binding_sites_file for read: $!";
+open (FH2, "< $subst_file") or die "Can't open $subst_file for read: $!";
 while (<FH2>) {
 	push (@binding_sites, $_);
 }
@@ -177,7 +205,7 @@ $figure->draw();
 
 print "=" x 20,  "All done!", "=" x 20, "\n";
 
-
+=cut
 #++++++++++++++ Subroutines ++++++++++++++++++#
 
 sub print_set {
